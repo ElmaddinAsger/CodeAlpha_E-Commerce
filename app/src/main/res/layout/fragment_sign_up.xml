@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".SignUpFragment"
+    android:padding="20dp">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inply_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/inply_password"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintVertical_bias="0.3">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inpedt_email"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Enter Email"
+            android:inputType="textEmailAddress"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inply_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="20dp"
+        app:layout_constraintTop_toBottomOf="@id/inply_email"
+        app:layout_constraintBottom_toTopOf="@id/txtvw_forgot_password">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inpedt_password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Enter Password"
+            android:inputType="textPassword"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/txtvw_forgot_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password?"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintTop_toBottomOf="@id/inply_password"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@id/btn_sign_up"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_sign_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        app:layout_constraintTop_toBottomOf="@id/txtvw_forgot_password"
+        app:layout_constraintBottom_toTopOf="@id/txtvw_dont_have_an_account"/>
+    <TextView
+        android:id="@+id/txtvw_dont_have_an_account"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Don't have an account?"
+        android:paddingVertical="10dp"
+        android:textAlignment="textEnd"
+        android:layout_marginTop="20dp"
+        app:layout_constraintWidth_percent="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_sign_up"
+        app:layout_constraintEnd_toStartOf="@id/txtvw_sign_up"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    <TextView
+        android:id="@+id/txtvw_sign_up"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:textStyle="bold"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/txtvw_dont_have_an_account"
+        app:layout_constraintTop_toTopOf="@id/txtvw_dont_have_an_account"
+        app:layout_constraintBottom_toBottomOf="@id/txtvw_dont_have_an_account"
+        app:layout_constraintBaseline_toBaselineOf="@id/txtvw_dont_have_an_account"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
