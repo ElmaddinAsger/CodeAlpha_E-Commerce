@@ -40,11 +40,17 @@ class SignUpFragment : Fragment() {
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
+                    user?.sendEmailVerification()?.addOnCompleteListener { emailTask ->
+                        if (emailTask.isSuccessful) {
+                            Toast.makeText(requireContext(),"Doğrulama e-postası gönderildi: ${user.email}",Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(requireContext(),"Doğrulama e-postası gönderilemedi: ${emailTask.exception?.message}",Toast.LENGTH_SHORT).show()
+                        }
+                    }
                     Toast.makeText(requireContext(),"Success", Toast.LENGTH_SHORT).show()
                 } else {
                     val error = task.exception?.message
                     Toast.makeText(requireContext(),"Unsuccess", Toast.LENGTH_SHORT).show()
-
                 }
             }
     }
