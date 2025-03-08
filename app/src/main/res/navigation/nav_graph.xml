@@ -32,12 +32,43 @@
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" >
         <action
-            android:id="@+id/action_signUpFragment_to_signInFragment"
-            app:destination="@id/signInFragment" />
+            android:id="@+id/action_signUpFragment_to_successSignUpFragment"
+            app:destination="@id/successSignUpFragment"
+            app:popUpTo="@id/signUpFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.elmaddinasger.ecommerce.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/successSignUpFragment"
+        android:name="com.elmaddinasger.ecommerce.SuccessSignUpFragment"
+        android:label="fragment_success_sign_up"
+        tools:layout="@layout/fragment_success_sign_up" >
+        <action
+            android:id="@+id/action_successSignUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment"
+            app:popUpTo="@id/successSignUpFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.elmaddinasger.ecommerce.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_securityFragment"
+            app:destination="@id/securityFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/securityFragment"
+        android:name="com.elmaddinasger.ecommerce.SecurityFragment"
+        android:label="fragment_security"
+        tools:layout="@layout/fragment_security" />
 </navigation>

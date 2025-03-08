@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.elmaddinasger.ecommerce.databinding.FragmentSignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -26,33 +27,50 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnSignUp.setOnClickListener {
+            val username  = binding.inpedtUsername.text.toString()
             val email = binding.inpedtEmail.text.toString()
             val password = binding.inpedtPassword.text.toString()
-            if (email.isNotEmpty() || password.isNotEmpty()) {
-                signUp(email,password)
-            }
+            val confirmPassword = binding.inpedtConfirmPassword.text.toString()
+
+            signUp(username,email, password,confirmPassword)
         }
     }
 
-    private fun signUp(email: String, password: String) {
-        val auth = FirebaseAuth.getInstance()
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(requireActivity()) { task ->
-                if (task.isSuccessful) {
-                    val user = auth.currentUser
-                    user?.sendEmailVerification()?.addOnCompleteListener { emailTask ->
-                        if (emailTask.isSuccessful) {
-                            Toast.makeText(requireContext(),"Doğrulama e-postası gönderildi: ${user.email}",Toast.LENGTH_SHORT).show()
+    private fun signUpError (message: String) {
+        binding.txtvwErrorMessage.apply {
+            text = message
+            visibility = View.VISIBLE
+        }
+    }
+
+    private fun signUp(username: String, email: String, password: String, confirmPassword: String) {
+            if (username.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()) {
+            if (password == confirmPassword) {
+                val auth = FirebaseAuth.getInstance()
+                auth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(requireActivity()) { task ->
+                        if (task.isSuccessful) {
+                            val user = auth.currentUser
+                            user?.sendEmailVerification()?.addOnCompleteListener { emailTask ->
+                                if (emailTask.isSuccessful) {
+                                    findNavController().navigate(R.id.action_signUpFragment_to_successSignUpFragment)
+                                } else {
+                                    signUpError(getString(R.string.unsuccessful_send_email))
+
+                                }
+                            }
                         } else {
-                            Toast.makeText(requireContext(),"Doğrulama e-postası gönderilemedi: ${emailTask.exception?.message}",Toast.LENGTH_SHORT).show()
+                            //val error = task.exception?.message
+                            signUpError(getString(R.string.invalid_email_or_password))
+
                         }
                     }
-                    Toast.makeText(requireContext(),"Success", Toast.LENGTH_SHORT).show()
-                } else {
-                    val error = task.exception?.message
-                    Toast.makeText(requireContext(),"Unsuccess", Toast.LENGTH_SHORT).show()
-                }
+            } else {
+                signUpError(getString(R.string.confirm_incorrect))
             }
+        } else {
+            signUpError(getString(R.string.empty_info))
+        }
     }
 
 

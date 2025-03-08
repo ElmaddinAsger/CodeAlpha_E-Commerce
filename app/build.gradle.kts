@@ -54,7 +54,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-
+    implementation(libs.squareup.retrofit)
+    implementation(libs.squareup.retrofit.gson)
     implementation(libs.androidx.navigation.ui)
     implementation(libs.androidx.navigation.fragment)
+    implementation(libs.glide)
 }

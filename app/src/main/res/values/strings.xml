@@ -1,5 +1,19 @@
 <resources>
     <string name="app_name">E Commerce</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_username">Enter Username</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="have_an_account">Have an account?</string>
+    <string name="confirm_incorrect"> Password confirmation is incorrect. Please enter your password again and make sure both passwords match.</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in">Sign In</string>
+    <string name="empty_info">Please make sure all required fields are filled out. The fields you left empty must be completed.</string>
+    <string name="success_sign_up_message">Congratulations! You have successfully registered. Don\'t forget to verify your email by clicking the confirmation link we sent you. For the best experience, verify it now!</string>
+    <string name="unsuccessful_send_email">Sorry! The verification email could not be sent. Please check your internet connection and try again. If the issue persists, contact our support team.</string>
+    <string name="continue_to_sign_in">Continue to Sign In</string>
+    <string name="invalid_email_or_password">Invalid email or password. Please enter a valid email address and a password in the correct format. Your password should be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number. Please try again. You may have registered before.</string>
+    <string name="dont_have_an_account">Don\'t have an account?</string>
+    <string name="forgot_password">Forgot Password?</string>
 </resources>

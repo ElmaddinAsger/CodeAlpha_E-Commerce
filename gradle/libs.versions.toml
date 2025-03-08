@@ -14,7 +14,10 @@ firebaseAuth = "23.2.0"
 credentials = "1.3.0"
 credentialsPlayServicesAuth = "1.3.0"
 googleid = "1.1.1"
-nav_version = "2.8.7"
+nav_version = "2.8.8"
+retrofit_version = "2.11.0"
+glide_version = "4.16.0"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -33,6 +36,10 @@ googleid = { group = "com.google.android.libraries.identity.googleid", name = "g
 androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "nav_version" }
 androidx-navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "nav_version" }
 
+squareup-retrofit = {group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit_version"}
+squareup-retrofit-gson = {group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit_version"}
+
+glide = {group = "com.github.bumptech.glide", name = "glide", version.ref = "glide_version"}
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

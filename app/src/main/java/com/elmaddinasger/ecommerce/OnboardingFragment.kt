@@ -5,8 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.elmaddinasger.ecommerce.databinding.FragmentOnboardingBinding
+import com.elmaddinasger.ecommerce.viewModels.ProductViewModel
+import kotlinx.coroutines.launch
 
 class OnboardingFragment : Fragment() {
     private lateinit var binding: FragmentOnboardingBinding
@@ -26,7 +30,5 @@ class OnboardingFragment : Fragment() {
             findNavController().navigate(R.id.action_onboardingFragment_to_signInFragment)
         }
     }
-
-
 
 }

@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#F8EDE3</color>  <!-- rgb(248, 237, 227) -->
+    <color name="colorSecondary">#BDD2B6</color>  <!-- rgb(189, 210, 182) -->
+    <color name="colorAccent">#A2B29F</color>  <!-- rgb(162, 178, 159) -->
+    <color name="colorText">#798779</color>  <!-- rgb(121, 135, 119) -->
 </resources>
