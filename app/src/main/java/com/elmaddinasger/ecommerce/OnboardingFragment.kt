@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -27,6 +28,11 @@ class OnboardingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnNext.setOnClickListener {
+            val sharedPref = requireActivity().getSharedPreferences("AppPrefs", AppCompatActivity.MODE_PRIVATE)
+            with(sharedPref.edit()) {
+                putBoolean("isFirstTime", false)
+                apply()
+            }
             findNavController().navigate(R.id.action_onboardingFragment_to_signInFragment)
         }
     }

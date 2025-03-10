@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.elmaddinasger.ecommerce.databinding.FragmentSignInBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -43,10 +44,16 @@ class SignInFragment : Fragment() {
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
+                    val sharedPref = requireActivity().getSharedPreferences("AppPrefs", AppCompatActivity.MODE_PRIVATE)
+                    with(sharedPref.edit()) {
+                        putBoolean("isLoggedIn", true)
+                        apply()
+                    }
+
                     findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
                 } else {
-                    val error = task.exception?.message
-                    // Hata mesajını gösterebilirsiniz.
+                    // Handle failed login
+                    Toast.makeText(context, "Login failed", Toast.LENGTH_SHORT).show()
                 }
             }
     }
