@@ -5,9 +5,13 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
+import android.icu.text.SimpleDateFormat
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,14 +22,24 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import com.elmaddinasger.ecommerce.databinding.FragmentShareBinding
 import com.google.android.material.snackbar.Snackbar
+import java.io.File
+import java.util.Date
+import java.util.Locale
+import android.graphics.*
+import android.media.ExifInterface
+import java.io.IOException
 
 class ShareFragment : Fragment() {
     private lateinit var binding: FragmentShareBinding
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var permissionLauncher: ActivityResultLauncher<String>
     var selectedBitmap: Bitmap? = null
+
+    private lateinit var cameraLauncher: ActivityResultLauncher<Uri>
+    private var photoUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +52,11 @@ class ShareFragment : Fragment() {
     ): View {
         binding = FragmentShareBinding.inflate(inflater,container,false)
         registerLauncher()
+        cameraLauncher ()
         return binding.root
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,6 +64,69 @@ class ShareFragment : Fragment() {
         binding.btnAddImageFromGallery.setOnClickListener {
             selectImage(binding.root)
         }
+        binding.btnTakeAPhoto.setOnClickListener {
+            openCamera()
+        }
+    }
+
+
+    private fun cameraLauncher () {
+        cameraLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+            if (success) {
+                val uri = photoUri // `val` olarak sabitle
+                uri?.let {
+                    val bitmap = uriToBitmap(it)
+                    binding.imgProductImage.setImageBitmap(bitmap)
+                }
+            }
+        }
+    }
+
+    private fun openCamera() {
+        val photoFile = createImageFile()
+        photoUri = FileProvider.getUriForFile(
+            requireContext(),
+            "com.elmaddinasger.ecommerce.fileprovider", // Burada package adı tam olmalı!
+            photoFile
+        )
+        photoUri?.let {
+            cameraLauncher.launch(it)
+        }
+
+    }
+
+    private fun uriToBitmap(uri: Uri): Bitmap? {
+        return try {
+            val inputStream = requireContext().contentResolver.openInputStream(uri)
+            val bitmap = BitmapFactory.decodeStream(inputStream)
+
+            // EXIF verisini oku
+            val exif = ExifInterface(requireContext().contentResolver.openInputStream(uri)!!)
+            val rotation = when (exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)) {
+                ExifInterface.ORIENTATION_ROTATE_90 -> 90
+                ExifInterface.ORIENTATION_ROTATE_180 -> 180
+                ExifInterface.ORIENTATION_ROTATE_270 -> 270
+                else -> 0
+            }
+
+            // Gerekirse döndür
+            if (rotation != 0) {
+                val matrix = Matrix()
+                matrix.postRotate(rotation.toFloat())
+                Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+            } else {
+                bitmap
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    private fun createImageFile(): File {
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile("JPEG_${timeStamp}_", ".jpg", storageDir)
     }
 
     private fun selectImage(view: View) {

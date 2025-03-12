@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         android:layout_margin="10dp"
-        android:scaleType="center"/>
+        android:scaleType="fitCenter"/>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_add_image_from_gallery"
         android:layout_width="0dp"
