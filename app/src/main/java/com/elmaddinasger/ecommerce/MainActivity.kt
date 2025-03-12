@@ -29,6 +29,9 @@ class MainActivity : AppCompatActivity() {
         binding.imgbtnProfile.setOnClickListener {
             navigateToProfile()
         }
+        binding.imgbtnShare.setOnClickListener {
+            navigateToShare()
+        }
 
         val sharedPreferences = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
         val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
@@ -50,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
       
     private fun navigateToProfile () {
         binding.navHostFragment.findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
@@ -57,6 +61,14 @@ class MainActivity : AppCompatActivity() {
         binding.imgbtnHome.background = ContextCompat.getDrawable(this,R.drawable.inactive_navigate_button_background)
         binding.imgbtnProfile.background = ContextCompat.getDrawable(this,R.drawable.active_navigate_button_background)
         binding.imgbtnProfile.isClickable = false
+    }
+
+    private fun navigateToShare () {
+        binding.navHostFragment.findNavController().navigate(R.id.action_homeFragment_to_shareFragment)
+        binding.imgbtnHome.isClickable = true
+        binding.imgbtnHome.background = ContextCompat.getDrawable(this,R.drawable.inactive_navigate_button_background)
+        binding.imgbtnShare.background = ContextCompat.getDrawable(this,R.drawable.active_navigate_button_background)
+        binding.imgbtnShare.isClickable = false
     }
 
 }

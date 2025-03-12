@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_shareFragment"
+            app:destination="@id/shareFragment" />
     </fragment>
     <fragment
         android:id="@+id/successSignUpFragment"
@@ -76,4 +79,9 @@
         android:name="com.elmaddinasger.ecommerce.SecurityFragment"
         android:label="fragment_security"
         tools:layout="@layout/fragment_security" />
+    <fragment
+        android:id="@+id/shareFragment"
+        android:name="com.elmaddinasger.ecommerce.ShareFragment"
+        android:label="fragment_share"
+        tools:layout="@layout/fragment_share" />
 </navigation>
